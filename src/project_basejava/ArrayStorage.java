@@ -6,20 +6,18 @@ import java.util.Arrays;
 
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
+    int size;
 
     void clear() {
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < size; i++) {
             storage[i] = null;
+            size = 0;
         }
     }
 
     void save(Resume resume) {
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] == null) {
-                storage[i] = resume;
-                break;
-            }
-        }
+        storage[size] = resume;
+        size++;
     }
 
     Resume get(String uuid) {
@@ -30,10 +28,11 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < size; i++) {
             if ((storage[i].uuid).equals(uuid)) {
                 storage[i] = null;
-                if (storage.length - (i + 1) >= 0) {
+                size--;
+                if (size - (i + 1) >= 0) {
                     System.arraycopy(storage, i + 1, storage, i, storage.length - 1);
                     storage[storage.length - 1] = null;
                     break;
@@ -46,16 +45,10 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        return Arrays.copyOf(storage, size());
+        return Arrays.copyOf(storage, size);
     }
 
     int size() {
-        int size = 0;
-        for (Resume resume : storage) {
-            if (resume != null) {
-                size++;
-            } else break;
-        }
         return size;
     }
 }
