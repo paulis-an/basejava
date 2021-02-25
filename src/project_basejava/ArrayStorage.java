@@ -21,8 +21,10 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        for (Resume resume : storage) {
-            return (resume.uuid).equals(uuid) ? resume : null;
+        for (int i = 0; i < size; i++) {
+            if ((storage[i].uuid).equals(uuid)) {
+                return storage[i];
+            }
         }
         return null;
     }
@@ -33,8 +35,7 @@ public class ArrayStorage {
                 storage[i] = null;
                 size--;
                 if (size - (i + 1) >= 0) {
-                    System.arraycopy(storage, i + 1, storage, i, storage.length - 1);
-                    storage[storage.length - 1] = null;
+                    System.arraycopy(storage, i + 1, storage, i, size);
                     break;
                 }
             }
