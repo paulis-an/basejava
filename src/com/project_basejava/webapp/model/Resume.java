@@ -1,4 +1,4 @@
-package project_basejava;
+package com.project_basejava.webapp.model;
 
 /**
  * Initial resume class
@@ -6,7 +6,11 @@ package project_basejava;
 public class Resume {
 
     // Unique identifier
-    String uuid;
+    private String uuid;
+
+    public String getUuid() {
+        return uuid;
+    }
 
     public Resume(String uuid) {
         this.uuid = uuid;
