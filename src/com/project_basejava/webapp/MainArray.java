@@ -1,4 +1,4 @@
-package com.project_basejava;
+package com.project_basejava.webapp;
 
 import com.project_basejava.webapp.model.Resume;
 import com.project_basejava.webapp.storage.ArrayStorage;
