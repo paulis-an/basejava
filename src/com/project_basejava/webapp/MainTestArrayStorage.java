@@ -47,7 +47,12 @@ public class MainTestArrayStorage {
 
         arrayStorage.update(r5);
 
+        arrayStorage.save(r3);
+
         System.out.println("Get r1: " + arrayStorage.get(r1.getUuid()));
+
+        arrayStorage.save(r1);
+        printAll();
 
         arrayStorage.clear();
         printAll();
