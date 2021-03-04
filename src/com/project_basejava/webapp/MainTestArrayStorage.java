@@ -1,5 +1,12 @@
 package com.project_basejava.webapp;
 
+/**
+ * Lesson_2 BaseJava
+ *
+ * @author Pavel Anisimov
+ * @version 1.0.0 04.03.2021
+ */
+
 import com.project_basejava.webapp.model.Resume;
 import com.project_basejava.webapp.storage.ArrayStorage;
 
@@ -21,6 +28,7 @@ public class MainTestArrayStorage {
         arrayStorage.save(r3);
         arrayStorage.save(r4);
         arrayStorage.save(r5);
+        arrayStorage.save(r1);
 
         System.out.println("Get r1: " + arrayStorage.get(r1.getUuid()));
         System.out.println("Size: " + arrayStorage.size());
@@ -34,6 +42,12 @@ public class MainTestArrayStorage {
         printAll();
         arrayStorage.delete(r5.getUuid());
         printAll();
+        arrayStorage.delete(r1.getUuid());
+        printAll();
+
+        arrayStorage.update(r5);
+
+        System.out.println("Get r1: " + arrayStorage.get(r1.getUuid()));
 
         arrayStorage.clear();
         printAll();

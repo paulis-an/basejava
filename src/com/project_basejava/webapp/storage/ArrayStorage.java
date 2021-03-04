@@ -19,26 +19,42 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        storage[size] = resume;
-        size++;
+        if (!checkResume(resume)) {
+            try {
+                storage[size] = resume;
+                size++;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Превышен размер массива резюме");
+            }
+        } else System.out.println(printAnswer(checkResume(resume)));
+    }
+
+    public void update(Resume resume) {
+        if (checkResume(resume)) {
+            new Resume(resume.getUuid());
+        } else System.out.println(printAnswer(checkResume(resume)));
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return storage[i];
+        if (checkUuid(uuid)) {
+            for (int i = 0; i < size; i++) {
+                if (storage[i].getUuid().equals(uuid)) {
+                    return storage[i];
+                }
             }
         }
         return null;
     }
 
     public void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                storage[i] = storage[size - 1];
-                storage[size - 1] = null;
-                size--;
-                break;
+        if (checkUuid(uuid)) {
+            for (int i = 0; i < size; i++) {
+                if (storage[i].getUuid().equals(uuid)) {
+                    storage[i] = storage[size - 1];
+                    storage[size - 1] = null;
+                    size--;
+                    break;
+                }
             }
         }
     }
@@ -52,5 +68,31 @@ public class ArrayStorage {
 
     public int size() {
         return size;
+    }
+
+    private boolean checkResume(Resume resume) {
+        for (Resume res : storage) {
+            if (resume == res) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkUuid(String uuid) {
+        try {
+            for (Resume res : storage) {
+                if (uuid.equals(res.getUuid())) {
+                    return true;
+                }
+            }
+        } catch (NullPointerException e) {
+            System.out.println(printAnswer(false));
+        }
+        return false;
+    }
+
+    private String printAnswer(boolean answer) {
+        return answer ? "Такое резюме в базе уже есть" : "Такого резюме в базе нет";
     }
 }
