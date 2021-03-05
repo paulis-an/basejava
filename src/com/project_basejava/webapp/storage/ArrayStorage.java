@@ -17,7 +17,7 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if(size < 10_000) {
+        if (size < 10_000) {
             if (checkResume(resume) == null) {
                 storage[size] = resume;
                 size++;
