@@ -4,7 +4,7 @@ package com.project_basejava.webapp;
  * Lesson_2 BaseJava
  *
  * @author Pavel Anisimov
- * @version 1.0.0 04.03.2021
+ * @version 1.0.2 05.03.2021
  */
 
 import com.project_basejava.webapp.model.Resume;
@@ -22,6 +22,7 @@ public class MainTestArrayStorage {
         Resume r3 = new Resume("uuid3");
         Resume r4 = new Resume("uuid4");
         Resume r5 = new Resume("uuid5");
+        Resume r6 = new Resume("uuid4");
 
         arrayStorage.save(r1);
         arrayStorage.save(r2);
@@ -45,7 +46,9 @@ public class MainTestArrayStorage {
         arrayStorage.delete(r1.getUuid());
         printAll();
 
-        arrayStorage.update(r5);
+        arrayStorage.update(r1);
+        arrayStorage.update(r6);
+        printAll();
 
         arrayStorage.save(r3);
 
@@ -65,5 +68,6 @@ public class MainTestArrayStorage {
         for (Resume resume : arrayStorage.getAll()) {
             System.out.println(resume);
         }
+        System.out.println();
     }
 }
