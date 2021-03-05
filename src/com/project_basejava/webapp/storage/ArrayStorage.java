@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class ArrayStorage {
     private Resume[] storage = new Resume[10_000];
     private int size;
-    private int positionNumber;
+    private int index;
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -32,14 +32,14 @@ public class ArrayStorage {
 
     public void update(Resume resume) {
         if (checkResumeByUuid(resume.getUuid()) != null) {
-            storage[positionNumber] = resume;
+            storage[index] = resume;
         } else printAnswer();
     }
 
 
     public void delete(String uuid) {
         if (checkResumeByUuid(uuid) != null) {
-            storage[positionNumber] = storage[size - 1];
+            storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
         } else printAnswer();
@@ -59,7 +59,7 @@ public class ArrayStorage {
     private Resume checkResumeByUuid(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
-                positionNumber = i;
+                index = i;
                 return storage[i];
             }
         }
