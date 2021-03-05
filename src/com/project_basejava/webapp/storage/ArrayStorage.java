@@ -1,7 +1,4 @@
 package com.project_basejava.webapp.storage;
-/**
- * Array based storage for Resumes
- */
 
 import com.project_basejava.webapp.model.Resume;
 
@@ -10,50 +7,42 @@ import java.util.Arrays;
 public class ArrayStorage {
     private Resume[] storage = new Resume[10_000];
     private int size;
+    private int positionNumber;
 
     public void clear() {
-        Arrays.fill(storage, null);
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     public void save(Resume resume) {
-        if (size < 10_000) {
-            if (checkResume(resume) == null) {
+        if (size < storage.length) {
+            if (checkResumeByUuid(resume.getUuid()) == null) {
                 storage[size] = resume;
                 size++;
-            } else System.out.println(printAnswer(true));
+            } else System.out.println("Такое резюме в базе уже есть");
         } else System.out.println("Массив резюме заполнен");
     }
 
-    public void update(Resume resume) {
-        if (checkUuid(resume.getUuid()) != null) {
-            for (int i = 0; i < size; i++) {
-                if (storage[i].getUuid().equals(resume.getUuid())) {
-                    storage[i] = resume;
-                }
-            }
-        } else System.out.println(printAnswer(false));
-    }
-
-
     public Resume get(String uuid) {
-        if (checkUuid(uuid) != null) {
-            return checkUuid(uuid);
-        } else System.out.println(printAnswer(false));
+        if (checkResumeByUuid(uuid) != null) {
+            return checkResumeByUuid(uuid);
+        } else printAnswer();
         return null;
     }
 
+    public void update(Resume resume) {
+        if (checkResumeByUuid(resume.getUuid()) != null) {
+            storage[positionNumber] = resume;
+        } else printAnswer();
+    }
+
+
     public void delete(String uuid) {
-        if (checkUuid(uuid) != null) {
-            for (int i = 0; i < size; i++) {
-                if (storage[i].getUuid().equals(uuid)) {
-                    storage[i] = storage[size - 1];
-                    storage[size - 1] = null;
-                    size--;
-                    break;
-                }
-            }
-        } else System.out.println(printAnswer(false));
+        if (checkResumeByUuid(uuid) != null) {
+            storage[positionNumber] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
+        } else printAnswer();
     }
 
     /**
@@ -67,25 +56,17 @@ public class ArrayStorage {
         return size;
     }
 
-    private String checkResume(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (resume == storage[i]) {
-                return storage[i].getUuid();
-            }
-        }
-        return null;
-    }
-
-    private Resume checkUuid(String uuid) {
+    private Resume checkResumeByUuid(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
+                positionNumber = i;
                 return storage[i];
             }
         }
         return null;
     }
 
-    private String printAnswer(boolean answer) {
-        return answer ? "Такое резюме в базе уже есть" : "Такого резюме в базе нет";
+    private void printAnswer() {
+        System.out.println("Такого резюме в базе нет");
     }
 }

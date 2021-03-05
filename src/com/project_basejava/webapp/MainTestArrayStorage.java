@@ -4,7 +4,7 @@ package com.project_basejava.webapp;
  * Lesson_2 BaseJava
  *
  * @author Pavel Anisimov
- * @version 1.0.2 05.03.2021
+ * @version 1.1 05.03.2021
  */
 
 import com.project_basejava.webapp.model.Resume;
