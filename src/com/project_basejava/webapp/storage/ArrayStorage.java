@@ -17,10 +17,12 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if (checkResume(resume) == null) {
-            storage[size] = resume;
-            size++;
-        } else System.out.println(printAnswer(true));
+        if(size < 10_000) {
+            if (checkResume(resume) == null) {
+                storage[size] = resume;
+                size++;
+            } else System.out.println(printAnswer(true));
+        } else System.out.println("Массив резюме заполнен");
     }
 
     public void update(Resume resume) {
