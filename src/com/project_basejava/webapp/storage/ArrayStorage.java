@@ -25,7 +25,7 @@ public class ArrayStorage {
     public Resume get(String uuid) {
         if (getIndex(uuid) != -1) {
             return storage[getIndex(uuid)];
-        } else System.out.println("Резюме с " + uuid + " в базе нет");
+        }
         return null;
     }
 
