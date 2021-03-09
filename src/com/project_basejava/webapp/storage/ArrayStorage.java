@@ -26,7 +26,7 @@ public class ArrayStorage {
         int index = getIndex(uuid);
         if (index != -1) {
             return storage[index];
-        } else System.out.println("Резюме с " + uuid + " в базе нет");
+        } System.out.println("Резюме с " + uuid + " в базе нет");
         return null;
     }
 
