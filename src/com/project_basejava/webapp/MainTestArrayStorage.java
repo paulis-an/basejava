@@ -1,20 +1,21 @@
 package com.project_basejava.webapp;
 
 /**
- * Lesson_2 BaseJava
+ * Lesson_3 BaseJava
  *
  * @author Pavel Anisimov
- * @version 1.2.2 09.03.2021
+ * @version 1.1 11.03.2021
  */
 
 import com.project_basejava.webapp.model.Resume;
 import com.project_basejava.webapp.storage.ArrayStorage;
+import com.project_basejava.webapp.storage.Storage;
 
 /**
  * Test for your ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private static final Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         final Resume r1 = new Resume("uuid1");
