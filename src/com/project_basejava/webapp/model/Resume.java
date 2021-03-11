@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Resume {
 
     // Unique identifier
-    private String uuid;
+    private final String uuid;
 
     @Override
     public boolean equals(Object o) {
