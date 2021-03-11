@@ -5,7 +5,8 @@ import com.project_basejava.webapp.model.Resume;
 import java.util.Arrays;
 
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10_000];
+    private static final int STORAGE_LIMIT = 10_000;
+    private final Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size;
 
     public void clear() {
@@ -14,7 +15,7 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if (size < storage.length) {
+        if (size < STORAGE_LIMIT) {
             if (getIndex(resume.getUuid()) == -1) {
                 storage[size] = resume;
                 size++;
