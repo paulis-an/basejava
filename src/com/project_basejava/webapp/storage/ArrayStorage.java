@@ -5,13 +5,8 @@ import com.project_basejava.webapp.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public void save(Resume resume) {
-        if (size < STORAGE_LIMIT) {
-            if (getIndex(resume.getUuid()) == -1) {
-                storage[size] = resume;
-                size++;
-            } else System.out.println("Резюме с " + resume.getUuid() + " в базе уже есть");
-        } else System.out.println("Массив резюме заполнен");
+    protected void saveResume(Resume resume, int index) {
+        storage[size] = resume;
     }
 
     @Override
