@@ -4,18 +4,18 @@ package com.project_basejava.webapp;
  * Lesson_3 BaseJava
  *
  * @author Pavel Anisimov
- * @version 1.2 11.03.2021
+ * @version 1.3 16.03.2021
  */
 
 import com.project_basejava.webapp.model.Resume;
-import com.project_basejava.webapp.storage.ArrayStorage;
+import com.project_basejava.webapp.storage.SortedArrayStorage;
 import com.project_basejava.webapp.storage.Storage;
 
 /**
  * Test for your ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private static final Storage ARRAY_STORAGE = new ArrayStorage();
+    private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
         final Resume r1 = new Resume("uuid1");
@@ -23,7 +23,7 @@ public class MainTestArrayStorage {
         final Resume r3 = new Resume("uuid3");
         final Resume r4 = new Resume("uuid4");
         final Resume r5 = new Resume("uuid5");
-        final Resume r6 = new Resume("uuid4");
+        final Resume r6 = new Resume("uuid3");
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
@@ -38,9 +38,9 @@ public class MainTestArrayStorage {
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
         printAll();
-        ARRAY_STORAGE.delete(r1.getUuid());
-        printAll();
         ARRAY_STORAGE.delete(r2.getUuid());
+        printAll();
+        ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
         ARRAY_STORAGE.delete(r5.getUuid());
         printAll();
