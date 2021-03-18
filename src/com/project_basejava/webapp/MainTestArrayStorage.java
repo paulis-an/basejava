@@ -4,7 +4,7 @@ package com.project_basejava.webapp;
  * Lesson_3 BaseJava
  *
  * @author Pavel Anisimov
- * @version 1.4 17.03.2021
+ * @version 1.5 18.03.2021
  */
 
 import com.project_basejava.webapp.model.Resume;
@@ -38,9 +38,9 @@ public class MainTestArrayStorage {
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
         printAll();
-        ARRAY_STORAGE.delete(r2.getUuid());
+        ARRAY_STORAGE.delete(r5.getUuid());
         printAll();
-        ARRAY_STORAGE.delete(r1.getUuid());
+        ARRAY_STORAGE.delete(r3.getUuid());
         printAll();
         ARRAY_STORAGE.delete(r5.getUuid());
         printAll();

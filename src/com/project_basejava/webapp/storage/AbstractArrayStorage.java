@@ -38,15 +38,16 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
-        if (index != -1) {
+        if (index >= 0) {
             storage[index] = resume;
         } else System.out.println("Резюме с " + resume.getUuid() + " в базе нет");
     }
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
-        if (index != -1) {
+        if (index >= 0) {
             deleteResume(index);
+            storage[size - 1] = null;
             size--;
         } else System.out.println("Резюме с " + uuid + " в базе нет");
     }
