@@ -45,11 +45,13 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
-        if (index >= 0) {
+        try {
             deleteResume(index);
             storage[size - 1] = null;
             size--;
-        } else System.out.println("Резюме с " + uuid + " в базе нет");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Резюме с " + uuid + " в базе нет");
+        }
     }
 
     protected abstract void deleteResume(int index);
