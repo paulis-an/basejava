@@ -1,10 +1,10 @@
 package com.project_basejava.webapp;
 
 /**
- * Lesson_3 BaseJava
+ * Lesson_4 BaseJava
  *
  * @author Pavel Anisimov
- * @version 1.6 18.03.2021
+ * @version 1.0 24.03.2021
  */
 
 import com.project_basejava.webapp.model.Resume;
