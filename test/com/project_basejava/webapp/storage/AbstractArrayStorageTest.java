@@ -1,6 +1,5 @@
 package com.project_basejava.webapp.storage;
 
-import com.project_basejava.webapp.exception.ExistStorageException;
 import com.project_basejava.webapp.exception.NotExistStorageException;
 import com.project_basejava.webapp.exception.StorageException;
 import com.project_basejava.webapp.model.Resume;
@@ -31,10 +30,8 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void clear() {
-        System.out.println(storage.size());
         storage.clear();
         storage.size();
-        System.out.println(storage.size());
     }
 
     @Test
@@ -51,7 +48,6 @@ public abstract class AbstractArrayStorageTest {
     public void update() {
         Resume r10 = new Resume(UUID_1);
         storage.update(r10);
-        System.out.println(r10);
         Assert.assertEquals(getResumeStorage()[0], r10);
     }
 
@@ -94,7 +90,7 @@ public abstract class AbstractArrayStorageTest {
         storage.get("dummy");
     }
 
-    @Test(expected = ExistStorageException.class)
+    @Test
     public void getExist() {
         storage.get("uuid1");
     }
