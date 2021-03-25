@@ -7,8 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 public abstract class AbstractArrayStorageTest {
     private final Storage storage;
 
@@ -36,7 +34,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void get() {
-        Assert.assertEquals(getResumeStorage()[0], storage.get(UUID_1));
+        Resume r = new Resume("uuid4");
+        storage.save(r);
+        Assert.assertEquals(r, storage.get("uuid4"));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -44,30 +44,30 @@ public abstract class AbstractArrayStorageTest {
         storage.get("dummy");
     }
 
+    @Test
+    public void update() {
+        Resume r = new Resume(UUID_1);
+        storage.update(r);
+        Assert.assertEquals(r, storage.get(UUID_1));
+    }
+
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() {
-        storage.update(storage.get("dummy"));
+        storage.update(new Resume("dummy"));
     }
 
     @Test
-    public void update() {
-        Resume r10 = new Resume(UUID_1);
-        storage.update(r10);
-        Assert.assertEquals(getResumeStorage()[0], r10);
+    public void delete() {
+        storage.delete(UUID_1);
+        Resume r = new Resume(biasUuid());
+        Assert.assertEquals(2, storage.size());
+        Assert.assertEquals(r, storage.getAll()[0]);
     }
 
     @Test(expected = NotExistStorageException.class)
     public void deleteNotExist() {
         storage.delete("dummy");
     }
-
-    @Test
-    public void delete() {
-        storage.delete(UUID_1);
-        Assert.assertEquals(getResumeStorage()[0], storage.get(biasUuid()));
-    }
-
-    protected abstract String biasUuid();
 
     @Test
     public void save() {
@@ -79,11 +79,8 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void getAll() {
-        ArrayList<String> al = new ArrayList<>();
-        for (int i = 0; i < storage.size(); i++) {
-            al.add("uuid" + (i + 1));
-            Assert.assertEquals(al.get(i), storage.getAll()[i].toString());
-        }
+        Resume[] r = {new Resume(UUID_1), new Resume(UUID_2), new Resume(UUID_3)};
+        Assert.assertArrayEquals(r, storage.getAll());
     }
 
     @Test
@@ -104,8 +101,5 @@ public abstract class AbstractArrayStorageTest {
         storage.save(new Resume());
     }
 
-    public Resume[] getResumeStorage() {
-        return storage.getAll();
-
-    }
+    protected abstract String biasUuid();
 }
