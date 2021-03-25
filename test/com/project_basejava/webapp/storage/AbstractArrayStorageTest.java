@@ -10,7 +10,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 public abstract class AbstractArrayStorageTest {
-    private Storage storage;
+    private final Storage storage;
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
