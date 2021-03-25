@@ -7,17 +7,17 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 public abstract class AbstractArrayStorageTest {
-    private final String uuid;
     private Storage storage;
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
 
-    public AbstractArrayStorageTest(Storage storage, String uuid) {
+    public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
-        this.uuid = uuid;
     }
 
     @Before
@@ -31,12 +31,17 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void clear() {
         storage.clear();
-        storage.size();
+        Assert.assertEquals(0, storage.size());
     }
 
     @Test
     public void get() {
         Assert.assertEquals(getResumeStorage()[0], storage.get(UUID_1));
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void getNotExist() {
+        storage.get("dummy");
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -59,40 +64,31 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void delete() {
         storage.delete(UUID_1);
-        Assert.assertEquals(getResumeStorage()[0], storage.get(uuid));
+        Assert.assertEquals(getResumeStorage()[0], storage.get(biasUuid()));
     }
 
-    @Test
-    public void saveExist() {
-        storage.get("uuid3");
-    }
+    protected abstract String biasUuid();
 
     @Test
     public void save() {
         Resume r = new Resume("uuid4");
         storage.save(r);
         Assert.assertEquals(4, storage.size());
-        Assert.assertEquals((getResumeStorage()[3]), storage.get("uuid4"));
+        Assert.assertEquals(r, storage.get("uuid4"));
     }
 
     @Test
     public void getAll() {
-        Assert.assertEquals(getResumeStorage().length, storage.size());
+        ArrayList<String> al = new ArrayList<>();
+        for (int i = 0; i < storage.size(); i++) {
+            al.add("uuid" + (i + 1));
+            Assert.assertEquals(al.get(i), storage.getAll()[i].toString());
+        }
     }
 
     @Test
     public void size() {
         Assert.assertEquals(3, storage.size());
-    }
-
-    @Test(expected = NotExistStorageException.class)
-    public void getNotExist() {
-        storage.get("dummy");
-    }
-
-    @Test
-    public void getExist() {
-        storage.get("uuid1");
     }
 
     @Test(expected = StorageException.class)
