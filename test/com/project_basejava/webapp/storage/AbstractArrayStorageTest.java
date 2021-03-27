@@ -56,12 +56,12 @@ public abstract class AbstractArrayStorageTest {
         storage.update(new Resume("dummy"));
     }
 
-    @Test
+    @Test(expected = NotExistStorageException.class)
     public void delete() {
-        storage.delete(UUID_1);
-        Resume r = new Resume(biasUuid());
+        Resume r = new Resume(UUID_3);
+        storage.delete(UUID_3);
         Assert.assertEquals(2, storage.size());
-        Assert.assertEquals(r, storage.getAll()[0]);
+        Assert.assertEquals(r, storage.get(UUID_3));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -100,6 +100,4 @@ public abstract class AbstractArrayStorageTest {
         }
         storage.save(new Resume());
     }
-
-    protected abstract String biasUuid();
 }
