@@ -1,6 +1,5 @@
 package com.project_basejava.webapp.storage;
 
-import com.project_basejava.webapp.exception.ExistStorageException;
 import com.project_basejava.webapp.exception.NotExistStorageException;
 import com.project_basejava.webapp.exception.StorageException;
 import com.project_basejava.webapp.model.Resume;
@@ -8,15 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public abstract class AbstractArrayStorageTest {
+public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
     private final Storage storage;
-
-    private static final String UUID_1 = "uuid1";
-    private static final Resume RESUME1 = new Resume(UUID_1);
-    private static final String UUID_2 = "uuid2";
-    private static final Resume RESUME2 = new Resume(UUID_2);
-    private static final String UUID_3 = "uuid3";
-    private static final Resume RESUME3 = new Resume(UUID_3);
 
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -46,7 +38,7 @@ public abstract class AbstractArrayStorageTest {
         assertGet(RESUME3);
     }
 
-    @Test(expected = NotExistStorageException.class)
+    @Override
     public void getNotExist() {
         storage.get("dummy");
     }
@@ -58,7 +50,7 @@ public abstract class AbstractArrayStorageTest {
         Assert.assertEquals(r, storage.get(UUID_1));
     }
 
-    @Test(expected = NotExistStorageException.class)
+    @Override
     public void updateNotExist() {
         storage.update(new Resume("dummy"));
     }
@@ -70,7 +62,7 @@ public abstract class AbstractArrayStorageTest {
         storage.get(UUID_3);
     }
 
-    @Test(expected = NotExistStorageException.class)
+    @Override
     public void deleteNotExist() {
         storage.delete("dummy");
     }
@@ -83,7 +75,7 @@ public abstract class AbstractArrayStorageTest {
         assertGet(r);
     }
 
-    @Test(expected = ExistStorageException.class)
+    @Override
     public void saveExist() {
         storage.save(new Resume(UUID_1));
     }
