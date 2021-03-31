@@ -1,7 +1,5 @@
 package com.project_basejava.webapp.storage;
 
-import com.project_basejava.webapp.exception.ExistStorageException;
-import com.project_basejava.webapp.exception.NotExistStorageException;
 import com.project_basejava.webapp.model.Resume;
 
 import java.util.ArrayList;
@@ -15,35 +13,23 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index != -1) {
-            throw new ExistStorageException(resume.getUuid());
-        } else LIST_STORAGE.add(resume);
+    public void saveRes(Resume resume, int index) {
+        LIST_STORAGE.add(resume);
     }
 
     @Override
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index == -1) {
-            throw new NotExistStorageException(uuid);
-        } else return LIST_STORAGE.get(index);
+    public Resume getRes(int index) {
+        return LIST_STORAGE.get(index);
     }
 
     @Override
-    public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index == -1) {
-            throw new NotExistStorageException(resume.getUuid());
-        } else LIST_STORAGE.set(index, resume);
+    public void updateRes(Resume resume, int index) {
+        LIST_STORAGE.set(index, resume);
     }
 
     @Override
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index == -1) {
-            throw new NotExistStorageException(uuid);
-        } else LIST_STORAGE.remove(index);
+    protected void deleteRes(int index) {
+        LIST_STORAGE.remove(index);
     }
 
     @Override
@@ -56,6 +42,7 @@ public class ListStorage extends AbstractStorage {
         return LIST_STORAGE.size();
     }
 
+    @Override
     protected int getIndex(String uuid) {
         Resume r = new Resume(uuid);
         if (LIST_STORAGE.contains(r)) {

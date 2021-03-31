@@ -9,22 +9,22 @@ public class MapStorage extends AbstractStorage{
     }
 
     @Override
-    public void save(Resume resume) {
+    public void saveRes(Resume resume, int index) {
 
     }
 
     @Override
-    public Resume get(String uuid) {
+    public Resume getRes(int index) {
         return null;
     }
 
     @Override
-    public void update(Resume resume) {
+    public void updateRes(Resume resume, int index) {
 
     }
 
     @Override
-    public void delete(String uuid) {
+    public void deleteRes(int index) {
 
     }
 
