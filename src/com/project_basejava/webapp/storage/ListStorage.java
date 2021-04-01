@@ -5,7 +5,7 @@ import com.project_basejava.webapp.model.Resume;
 import java.util.ArrayList;
 
 public class ListStorage extends AbstractStorage {
-    protected static ArrayList<Resume> LIST_STORAGE = new ArrayList<>();
+    protected final static ArrayList<Resume> LIST_STORAGE = new ArrayList<>();
 
     @Override
     public void clear() {
