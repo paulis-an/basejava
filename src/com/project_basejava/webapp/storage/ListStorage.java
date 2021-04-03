@@ -5,49 +5,46 @@ import com.project_basejava.webapp.model.Resume;
 import java.util.ArrayList;
 
 public class ListStorage extends AbstractStorage {
-    protected final static ArrayList<Resume> LIST_STORAGE = new ArrayList<>();
+    private ArrayList<Resume> listStorage = new ArrayList<>();
 
     @Override
     public void clear() {
-        LIST_STORAGE.clear();
+        listStorage.clear();
     }
 
     @Override
-    public void saveRes(Resume resume, int index) {
-        LIST_STORAGE.add(resume);
+    public void saveResume(Resume resume, int index) {
+        listStorage.add(resume);
     }
 
     @Override
-    public Resume getRes(int index) {
-        return LIST_STORAGE.get(index);
+    public Resume getResume(int index) {
+        return listStorage.get(index);
     }
 
     @Override
-    public void updateRes(Resume resume, int index) {
-        LIST_STORAGE.set(index, resume);
+    public void updateResume(Resume resume, int index) {
+        listStorage.set(index, resume);
     }
 
     @Override
-    protected void deleteRes(int index) {
-        LIST_STORAGE.remove(index);
+    protected void deleteResume(int index) {
+        listStorage.remove(index);
     }
 
     @Override
     public Resume[] getAll() {
-        return LIST_STORAGE.toArray(new Resume[0]);
+        return listStorage.toArray(new Resume[0]);
     }
 
     @Override
     public int size() {
-        return LIST_STORAGE.size();
+        return listStorage.size();
     }
 
     @Override
-    protected int getIndex(String uuid) {
+    public int getIndex(String uuid) {
         Resume r = new Resume(uuid);
-        if (LIST_STORAGE.contains(r)) {
-            return LIST_STORAGE.indexOf(r);
-        }
-        return -1;
+        return listStorage.contains(r) ? listStorage.indexOf(r) : -1;
     }
 }

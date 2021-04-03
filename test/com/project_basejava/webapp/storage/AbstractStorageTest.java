@@ -17,7 +17,7 @@ public abstract class AbstractStorageTest {
     private static final String UUID_4 = "uuid4";
     private static final Resume RESUME4 = new Resume(UUID_4);
 
-    private final Storage storage;
+    private Storage storage;
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -39,9 +39,6 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void get() {
-        Resume r = new Resume("uuid4");
-        storage.save(r);
-        assertGet(r);
         assertGet(RESUME1);
         assertGet(RESUME2);
         assertGet(RESUME3);

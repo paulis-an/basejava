@@ -6,48 +6,45 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class MapStorage extends AbstractStorage {
-    protected static Map<String, Resume> MAP_STORAGE = new TreeMap<>();
+    private Map<String, Resume> mapStorage = new TreeMap<>();
 
     @Override
     public void clear() {
-        MAP_STORAGE.clear();
+        mapStorage.clear();
     }
 
     @Override
-    public void saveRes(Resume resume, int index) {
-        MAP_STORAGE.put(resume.getUuid(), resume);
+    public void saveResume(Resume resume, int index) {
+        mapStorage.put(resume.getUuid(), resume);
     }
 
     @Override
-    public Resume getRes(int index) {
-        return MAP_STORAGE.get("uuid" + index);
+    public Resume getResume(int index) {
+        return mapStorage.get("uuid" + index);
     }
 
     @Override
-    public void updateRes(Resume resume, int index) {
-        MAP_STORAGE.put(resume.getUuid(), resume);
+    public void updateResume(Resume resume, int index) {
+        mapStorage.put(resume.getUuid(), resume);
     }
 
     @Override
-    public void deleteRes(int index) {
-        MAP_STORAGE.remove("uuid" + index);
+    public void deleteResume(int index) {
+        mapStorage.remove("uuid" + index);
     }
 
     @Override
     public Resume[] getAll() {
-        return MAP_STORAGE.values().toArray(new Resume[0]);
+        return mapStorage.values().toArray(new Resume[0]);
     }
 
     @Override
     public int size() {
-        return MAP_STORAGE.size();
+        return mapStorage.size();
     }
 
     @Override
     public int getIndex(String uuid) {
-        if (MAP_STORAGE.containsKey(uuid)) {
-            return Integer.parseInt(uuid.substring(4));
-        }
-        return -1;
+        return mapStorage.containsKey(uuid) ? Integer.parseInt(uuid.substring(4)) : -1;
     }
 }
