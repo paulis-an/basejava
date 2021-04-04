@@ -4,19 +4,19 @@ package com.project_basejava.webapp;
  * Lesson_5 BaseJava
  *
  * @author Pavel Anisimov
- * @version 28.03.2021
+ * @version 04.04.2021
  *
  */
 
 import com.project_basejava.webapp.model.Resume;
-import com.project_basejava.webapp.storage.MapStorage;
+import com.project_basejava.webapp.storage.ListStorage;
 import com.project_basejava.webapp.storage.Storage;
 
 /**
  * Test for your ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private static final Storage ARRAY_STORAGE = new MapStorage();
+    private static final Storage ARRAY_STORAGE = new ListStorage();
 
     public static void main(String[] args) {
         final Resume r1 = new Resume("uuid1");

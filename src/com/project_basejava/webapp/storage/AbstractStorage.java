@@ -16,31 +16,33 @@ public abstract class AbstractStorage implements Storage {
     protected abstract void saveResume(Resume resume, int index);
 
     public Resume get(String uuid) {
-        int index = indexUuid(uuid);
+        int index = returnIndex(uuid);
         return getResume(index);
     }
 
     protected abstract Resume getResume(int index);
 
     public void update(Resume resume) {
-        int index = indexUuid(resume.getUuid());
+        int index = returnIndex(resume.getUuid());
         updateResume(resume, index);
     }
 
     protected abstract void updateResume(Resume resume, int index);
 
     public void delete(String uuid) {
-        int index = indexUuid(uuid);
+        int index = returnIndex(uuid);
         deleteResume(index);
     }
 
     protected abstract void deleteResume(int index);
 
-    private int indexUuid(String uuid) {
+    private int returnIndex(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
             throw new NotExistStorageException(uuid);
         }
         return index;
     }
+
+    protected abstract int getIndex(String uuid);
 }

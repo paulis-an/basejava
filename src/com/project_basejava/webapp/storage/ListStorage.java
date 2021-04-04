@@ -45,6 +45,6 @@ public class ListStorage extends AbstractStorage {
     @Override
     public int getIndex(String uuid) {
         Resume r = new Resume(uuid);
-        return listStorage.contains(r) ? listStorage.indexOf(r) : -1;
+        return listStorage.indexOf(r);
     }
 }
