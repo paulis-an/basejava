@@ -1,30 +1,28 @@
 package com.project_basejava.webapp;
 
 /**
- * Lesson_5 BaseJava
+ * Lesson_6 BaseJava
  *
  * @author Pavel Anisimov
- * @version 04.04.2021
- *
+ * @version 09.04.2021
  */
 
 import com.project_basejava.webapp.model.Resume;
-import com.project_basejava.webapp.storage.ListStorage;
-import com.project_basejava.webapp.storage.Storage;
+import com.project_basejava.webapp.storage.*;
 
 /**
  * Test for your ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private static final Storage ARRAY_STORAGE = new ListStorage();
+    private static final Storage ARRAY_STORAGE = new MapUuidStorage();
 
     public static void main(String[] args) {
-        final Resume r1 = new Resume("uuid1");
-        final Resume r2 = new Resume("uuid2");
-        final Resume r3 = new Resume("uuid3");
-        final Resume r4 = new Resume("uuid4");
-        final Resume r5 = new Resume("uuid5");
-        final Resume r6 = new Resume("uuid2");
+        final Resume r1 = new Resume("uuid1", "Petrov Sergey");
+        final Resume r2 = new Resume("uuid2", "Ivanov Daniil");
+        final Resume r3 = new Resume("uuid3", "Kinchev Konstantin");
+        final Resume r4 = new Resume("uuid4", "Spirin Dmitriy");
+        final Resume r5 = new Resume("uuid5", "Puh Anton");
+        final Resume r6 = new Resume("uuid2", "Ivanov Sergey");
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r3);
@@ -50,7 +48,8 @@ public class MainTestArrayStorage {
 
 //        ARRAY_STORAGE.update(r1);
         ARRAY_STORAGE.update(r6);
-
+        System.out.println("Update resume - uuid2");
+        printAll();
         ARRAY_STORAGE.save(r3);
         printAll();
 
@@ -67,7 +66,7 @@ public class MainTestArrayStorage {
 
     static void printAll() {
         System.out.println("\nGet All");
-        for (Resume resume : ARRAY_STORAGE.getAll()) {
+        for (Resume resume : ARRAY_STORAGE.getAllSorted()) {
             System.out.println(resume);
         }
         System.out.println();

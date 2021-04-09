@@ -2,10 +2,10 @@ package com.project_basejava.webapp.storage;
 
 import com.project_basejava.webapp.model.Resume;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class ListStorage extends AbstractStorage {
-    private ArrayList<Resume> listStorage = new ArrayList<>();
+    private List<Resume> listStorage = new ArrayList<>();
 
     @Override
     public void clear() {
@@ -28,13 +28,14 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteResume(int index) {
+    public void deleteResume(int index) {
         listStorage.remove(index);
     }
 
     @Override
-    public Resume[] getAll() {
-        return listStorage.toArray(new Resume[0]);
+    public List<Resume> getAllSortedResume() {
+//        listStorage.sort(RESUME_COMPARATOR_NAME);
+        return listStorage;
     }
 
     @Override
@@ -44,7 +45,11 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public int getIndex(String uuid) {
-        Resume r = new Resume(uuid);
-        return listStorage.indexOf(r);
+        for (int i = 0; i < listStorage.size(); i++) {
+            if(listStorage.get(i).getUuid().equals(uuid)){
+                return i;
+            }
+        }
+        return -1;
     }
 }

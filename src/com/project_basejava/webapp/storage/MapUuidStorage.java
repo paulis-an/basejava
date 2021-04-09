@@ -2,10 +2,12 @@ package com.project_basejava.webapp.storage;
 
 import com.project_basejava.webapp.model.Resume;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class MapStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage {
     private Map<String, Resume> mapStorage = new TreeMap<>();
 
     @Override
@@ -34,8 +36,8 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return mapStorage.values().toArray(new Resume[0]);
+    public List<Resume> getAllSortedResume() {
+        return new ArrayList<>(mapStorage.values());
     }
 
     @Override

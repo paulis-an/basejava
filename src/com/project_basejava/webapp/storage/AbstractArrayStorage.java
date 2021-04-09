@@ -3,7 +3,10 @@ package com.project_basejava.webapp.storage;
 import com.project_basejava.webapp.exception.StorageException;
 import com.project_basejava.webapp.model.Resume;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10_000;
@@ -47,8 +50,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract void deleteFromArray(int index);
 
     @Override
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
+    public List<Resume> getAllSortedResume() {
+        return Arrays.asList(Arrays.copyOf(storage, size));
     }
 
     @Override
