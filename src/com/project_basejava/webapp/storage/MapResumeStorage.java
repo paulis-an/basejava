@@ -5,31 +5,32 @@ import com.project_basejava.webapp.model.Resume;
 import java.util.*;
 
 public class MapResumeStorage extends AbstractStorage {
-    private Map<String, Resume> mapStorage = new HashMap<>();
-
-    @Override
-    protected void saveResume(Resume resume, int index) {
-        mapStorage.put(resume.getFullName(), resume);
-    }
-
-    @Override
-    protected Resume getResume(int index) {
-        return mapStorage.get(mapStorage.get(index).getFullName());
-    }
-
-    @Override
-    protected void updateResume(Resume resume, int index) {
-        mapStorage.put(resume.getFullName(), resume);
-    }
-
-    @Override
-    protected void deleteResume(int index) {
-        mapStorage.remove(mapStorage.get(index).getFullName());
-    }
+    private final Map<String, Resume> mapStorage = new HashMap<>();
 
     @Override
     public void clear() {
         mapStorage.clear();
+    }
+
+    @Override
+    protected void saveResume(Resume resume, Object searchKey) {
+        mapStorage.put(resume.getUuid(), resume);
+    }
+
+    @Override
+    protected Resume getResume(Object searchKey) {
+        return (Resume) searchKey;
+    }
+
+    @Override
+    protected void updateResume(Resume resume, Object searchKey) {
+        mapStorage.put(resume.getUuid(), resume);
+    }
+
+    @Override
+    protected void deleteResume(Object searchKey) {
+        Resume r = (Resume) searchKey;
+        mapStorage.remove(r.getUuid());
     }
 
     @Override
@@ -43,7 +44,12 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
-    protected int getIndex(String uuid) {
-        return 0;
+    protected Object getSearchKey(String uuid) {
+        return mapStorage.get(uuid);
+    }
+
+    @Override
+    public boolean isExistResume(Object searchKey) {
+        return searchKey == null;
     }
 }

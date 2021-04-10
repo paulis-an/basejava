@@ -5,7 +5,7 @@ import com.project_basejava.webapp.model.Resume;
 import java.util.*;
 
 public class ListStorage extends AbstractStorage {
-    private List<Resume> listStorage = new ArrayList<>();
+    private final List<Resume> listStorage = new ArrayList<>();
 
     @Override
     public void clear() {
@@ -13,28 +13,28 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void saveResume(Resume resume, int index) {
+    public void saveResume(Resume resume, Object searchKey) {
         listStorage.add(resume);
     }
 
     @Override
-    public Resume getResume(int index) {
-        return listStorage.get(index);
+    public Resume getResume(Object searchKey) {
+        return listStorage.get((Integer) searchKey);
     }
 
     @Override
-    public void updateResume(Resume resume, int index) {
-        listStorage.set(index, resume);
+    public void updateResume(Resume resume, Object searchKey) {
+        listStorage.set((Integer) searchKey, resume);
     }
 
     @Override
-    public void deleteResume(int index) {
-        listStorage.remove(index);
+    public void deleteResume(Object searchKey) {
+        int sk = (Integer) searchKey;
+        listStorage.remove(sk);
     }
 
     @Override
     public List<Resume> getAllSortedResume() {
-//        listStorage.sort(RESUME_COMPARATOR_NAME);
         return listStorage;
     }
 
@@ -44,12 +44,17 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public int getIndex(String uuid) {
+    public Object getSearchKey(String uuid) {
         for (int i = 0; i < listStorage.size(); i++) {
-            if(listStorage.get(i).getUuid().equals(uuid)){
+            if (listStorage.get(i).getUuid().equals(uuid)) {
                 return i;
             }
         }
         return -1;
+    }
+
+    @Override
+    public boolean isExistResume(Object searchKey) {
+        return (Integer) searchKey < 0;
     }
 }

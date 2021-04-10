@@ -3,9 +3,7 @@ package com.project_basejava.webapp.storage;
 import com.project_basejava.webapp.exception.StorageException;
 import com.project_basejava.webapp.model.Resume;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
@@ -21,9 +19,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void saveResume(Resume resume, int index) {
+    public void saveResume(Resume resume, Object searchKey) {
         if (size < STORAGE_LIMIT) {
-            saveToArray(resume, index);
+            saveToArray(resume, (Integer) searchKey);
             size++;
         } else throw new StorageException("Storage overflow", resume.getUuid());
     }
@@ -31,18 +29,18 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract void saveToArray(Resume resume, int index);
 
     @Override
-    protected Resume getResume(int index) {
-        return storage[index];
+    protected Resume getResume(Object searchKey) {
+        return storage[(Integer) searchKey];
     }
 
     @Override
-    protected void updateResume(Resume resume, int index) {
-        storage[index] = resume;
+    protected void updateResume(Resume resume, Object searchKey) {
+        storage[(Integer) searchKey] = resume;
     }
 
     @Override
-    protected void deleteResume(int index) {
-        deleteFromArray(index);
+    protected void deleteResume(Object searchKey) {
+        deleteFromArray((Integer) searchKey);
         storage[size - 1] = null;
         size--;
     }
@@ -57,5 +55,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public boolean isExistResume(Object searchKey) {
+        return (Integer) searchKey < 0;
     }
 }
