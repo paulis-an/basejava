@@ -9,17 +9,19 @@ import java.util.List;
 
 public abstract class AbstractStorage implements Storage {
 
-    protected static final Comparator<Resume> RESUME_COMPARATOR_NAME = Comparator.comparing(Resume::getFullName);
+    public static final Comparator<Resume> RESUME_COMPARATOR_NAME = Comparator.comparing(Resume::getFullName);
+
+    private static final Comparator<Resume> RESUME_COMPARATOR_UUID = Comparator.comparing(Resume::getUuid);
 
     protected abstract void saveResume(Resume resume, Object searchKey);
 
-    protected abstract Object getResume(Object searchKey);
+    protected abstract Resume getResume(Object searchKey);
 
     protected abstract void updateResume(Resume resume, Object searchKey);
 
     protected abstract void deleteResume(Object searchKey);
 
-    protected abstract List<Resume> getAllSortedResume();
+    protected abstract List<Resume> copyResume();
 
     protected abstract Object getSearchKey(String uuid);
 
@@ -32,28 +34,28 @@ public abstract class AbstractStorage implements Storage {
         } else throw new ExistStorageException(resume.getUuid());
     }
 
-    public Object get(String uuid) {
-        Object searchKey = getNotExistedSearchKey(uuid);
+    public Resume get(String uuid) {
+        Object searchKey = getNotExistException(uuid);
         return getResume(searchKey);
     }
 
     public void update(Resume resume) {
-        Object searchKey = getNotExistedSearchKey(resume.getUuid());
+        Object searchKey = getNotExistException(resume.getUuid());
         updateResume(resume, searchKey);
     }
 
     public void delete(String uuid) {
-        Object searchKey = getNotExistedSearchKey(uuid);
+        Object searchKey = getNotExistException(uuid);
         deleteResume(searchKey);
     }
 
     public List<Resume> getAllSorted() {
-        List<Resume> list = getAllSortedResume();
+        List<Resume> list = copyResume();
         list.sort(RESUME_COMPARATOR_NAME);
         return list;
     }
 
-    private Object getNotExistedSearchKey(String uuid) {
+    private Object getNotExistException(String uuid) {
         Object searchKey = getSearchKey(uuid);
         if (isExistResume(searchKey)) {
             throw new NotExistStorageException(uuid);

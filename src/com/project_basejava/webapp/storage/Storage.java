@@ -10,16 +10,11 @@ public interface Storage {
 
     void save(Resume resume);
 
-    Object get(String uuid);
+    Resume get(String uuid);
 
     void update(Resume resume);
 
     void delete(String uuid);
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-//    Resume[] getAll();
 
     List<Resume> getAllSorted();
 

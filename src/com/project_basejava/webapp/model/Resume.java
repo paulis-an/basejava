@@ -3,9 +3,6 @@ package com.project_basejava.webapp.model;
 import java.util.Objects;
 import java.util.UUID;
 
-/**
- * Initial resume class
- */
 public class Resume implements Comparable<Resume> {
 
     // Unique identifier
@@ -21,6 +18,14 @@ public class Resume implements Comparable<Resume> {
         this.fullName = fullName;
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -32,14 +37,6 @@ public class Resume implements Comparable<Resume> {
     @Override
     public int hashCode() {
         return Objects.hash(uuid);
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public String getFullName() {
-        return fullName;
     }
 
     @Override

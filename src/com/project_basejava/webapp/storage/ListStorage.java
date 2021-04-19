@@ -18,7 +18,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume getResume(Object searchKey) {
+    protected Resume getResume(Object searchKey) {
         return listStorage.get((Integer) searchKey);
     }
 
@@ -34,7 +34,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> getAllSortedResume() {
+    public List<Resume> copyResume() {
         return listStorage;
     }
 
@@ -44,7 +44,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Object getSearchKey(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         for (int i = 0; i < listStorage.size(); i++) {
             if (listStorage.get(i).getUuid().equals(uuid)) {
                 return i;
