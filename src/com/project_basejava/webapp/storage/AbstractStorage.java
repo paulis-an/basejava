@@ -9,9 +9,7 @@ import java.util.List;
 
 public abstract class AbstractStorage implements Storage {
 
-    public static final Comparator<Resume> RESUME_COMPARATOR_NAME = Comparator.comparing(Resume::getFullName);
-
-    private static final Comparator<Resume> RESUME_COMPARATOR_UUID = Comparator.comparing(Resume::getUuid);
+    private static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     protected abstract void saveResume(Resume resume, Object searchKey);
 
@@ -21,7 +19,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void deleteResume(Object searchKey);
 
-    protected abstract List<Resume> copyResume();
+    protected abstract List<Resume> getAllResume();
 
     protected abstract Object getSearchKey(String uuid);
 
@@ -35,27 +33,27 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public Resume get(String uuid) {
-        Object searchKey = getNotExistException(uuid);
+        Object searchKey = getExistException(uuid);
         return getResume(searchKey);
     }
 
     public void update(Resume resume) {
-        Object searchKey = getNotExistException(resume.getUuid());
+        Object searchKey = getExistException(resume.getUuid());
         updateResume(resume, searchKey);
     }
 
     public void delete(String uuid) {
-        Object searchKey = getNotExistException(uuid);
+        Object searchKey = getExistException(uuid);
         deleteResume(searchKey);
     }
 
     public List<Resume> getAllSorted() {
-        List<Resume> list = copyResume();
-        list.sort(RESUME_COMPARATOR_NAME);
+        List<Resume> list = getAllResume();
+        list.sort(RESUME_COMPARATOR);
         return list;
     }
 
-    private Object getNotExistException(String uuid) {
+    private Object getExistException(String uuid) {
         Object searchKey = getSearchKey(uuid);
         if (isExistResume(searchKey)) {
             throw new NotExistStorageException(uuid);

@@ -15,11 +15,11 @@ import java.util.List;
 
 public abstract class AbstractStorageTest {
     private static final String UUID_1 = "uuid1";
-    private static final Resume RESUME1 = new Resume(UUID_1, "dummy3");
+    private static final Resume RESUME1 = new Resume(UUID_1, "dummy1");
     private static final String UUID_2 = "uuid2";
-    private static final Resume RESUME2 = new Resume(UUID_2, "dummy1");
+    private static final Resume RESUME2 = new Resume(UUID_2, "dummy2");
     private static final String UUID_3 = "uuid3";
-    private static final Resume RESUME3 = new Resume(UUID_3, "dummy2");
+    private static final Resume RESUME3 = new Resume(UUID_3, "dummy3");
     private static final String UUID_4 = "uuid4";
     private static final Resume RESUME4 = new Resume(UUID_4, "dummy4");
 
@@ -52,19 +52,19 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() {
-        storage.get("UUID_4");
+        storage.get(UUID_4);
     }
 
     @Test
     public void update() {
-        Resume r = new Resume(UUID_1, "UUID_4");
+        Resume r = new Resume(UUID_1, UUID_4);
         storage.update(r);
         Assert.assertEquals(r, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() {
-        storage.update(new Resume("uuid5", "UUID_4"));
+        storage.update(new Resume("uuid5", UUID_4));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -76,7 +76,7 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void deleteNotExist() {
-        storage.delete("UUID_4");
+        storage.delete(UUID_4);
     }
 
     @Test
@@ -88,14 +88,13 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = ExistStorageException.class)
     public void saveExist() {
-        storage.save(new Resume(UUID_1, "UUID_4"));
+        storage.save(new Resume(UUID_1, UUID_4));
     }
 
     @Test
     public void getAllSorted() {
         List<Resume> list = storage.getAllSorted();
         Assert.assertEquals(3, list.size());
-        Assert.assertEquals(RESUME2, list.get(0));
         List<Resume> list2 = Arrays.asList(RESUME1, RESUME3, RESUME2);
         Collections.sort(list2);
         Assert.assertEquals(list, list2);

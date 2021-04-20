@@ -48,7 +48,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract void deleteFromArray(int index);
 
     @Override
-    public List<Resume> copyResume() {
+    public List<Resume> getAllResume() {
         return Arrays.asList(Arrays.copyOf(storage, size));
     }
 
