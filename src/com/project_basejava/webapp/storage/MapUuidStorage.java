@@ -2,13 +2,15 @@ package com.project_basejava.webapp.storage;
 
 import com.project_basejava.webapp.model.Resume;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
-public class MapUuidStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage<String> {
     private final Map<String, Resume> mapStorage = new TreeMap<>();
+
+    @Override
+    protected String getSearchKey(String uuid) {
+        return uuid;
+    }
 
     @Override
     public void clear() {
@@ -16,23 +18,23 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    public void saveResume(Resume resume, Object searchKey) {
-        mapStorage.put(resume.getUuid(), resume);
+    public void saveResume(Resume resume, String uuid) {
+        mapStorage.put(uuid, resume);
     }
 
     @Override
-    public Resume getResume(Object searchKey) {
-        return mapStorage.get("uuid" + searchKey);
+    public Resume getResume(String uuid) {
+        return mapStorage.get(uuid);
     }
 
     @Override
-    public void updateResume(Resume resume, Object searchKey) {
-        mapStorage.put(resume.getUuid(), resume);
+    public void updateResume(Resume resume, String uuid) {
+        mapStorage.put(uuid, resume);
     }
 
     @Override
-    public void deleteResume(Object searchKey) {
-        mapStorage.remove("uuid" + searchKey);
+    public void deleteResume(String uuid) {
+        mapStorage.remove(uuid);
     }
 
     @Override
@@ -46,12 +48,7 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
-        return mapStorage.containsKey(uuid) ? Integer.parseInt(uuid.substring(4)) : -1;
-    }
-
-    @Override
-    public boolean isExistResume(Object searchKey) {
-        return (Integer) searchKey < 0;
+    public boolean isExistResume(String uuid) {
+        return mapStorage.containsKey(uuid);
     }
 }

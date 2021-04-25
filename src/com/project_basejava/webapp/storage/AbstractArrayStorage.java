@@ -6,7 +6,7 @@ import com.project_basejava.webapp.model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int STORAGE_LIMIT = 10_000;
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
 
@@ -19,9 +19,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void saveResume(Resume resume, Object searchKey) {
+    public void saveResume(Resume resume, Integer searchKey) {
         if (size < STORAGE_LIMIT) {
-            saveToArray(resume, (Integer) searchKey);
+            saveToArray(resume, searchKey);
             size++;
         } else throw new StorageException("Storage overflow", resume.getUuid());
     }
@@ -29,18 +29,18 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract void saveToArray(Resume resume, int index);
 
     @Override
-    protected Resume getResume(Object searchKey) {
-        return storage[(Integer) searchKey];
+    protected Resume getResume(Integer searchKey) {
+        return storage[searchKey];
     }
 
     @Override
-    protected void updateResume(Resume resume, Object searchKey) {
-        storage[(Integer) searchKey] = resume;
+    protected void updateResume(Resume resume, Integer searchKey) {
+        storage[searchKey] = resume;
     }
 
     @Override
-    protected void deleteResume(Object searchKey) {
-        deleteFromArray((Integer) searchKey);
+    protected void deleteResume(Integer searchKey) {
+        deleteFromArray(searchKey);
         storage[size - 1] = null;
         size--;
     }
@@ -58,7 +58,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public boolean isExistResume(Object searchKey) {
-        return (Integer) searchKey < 0;
+    public boolean isExistResume(Integer searchKey) {
+        return searchKey >= 0;
     }
 }

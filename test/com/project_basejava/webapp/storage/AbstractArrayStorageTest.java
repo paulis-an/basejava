@@ -16,11 +16,11 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
         storage.clear();
         try {
             for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume("dummy"));
+                storage.save(new Resume("Name" + 1));
             }
         } catch (StorageException e) {
             Assert.fail("Storage overflow ahead of time");
         }
-        storage.save(new Resume("dummy"));
+        storage.save(new Resume("Overflow"));
     }
 }
